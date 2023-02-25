@@ -1,0 +1,75 @@
+#!/bin/bash
+
+sudo rm -fr /var/lib/etcd
+
+sudo hostnamectl set-hostname "$(curl -s http://169.254.169.254/latest/meta-data/local-hostname)"
+
+echo "Download and Install the etcd Binaries"
+wget -q --show-progress --https-only --timestamping \
+  "https://github.com/etcd-io/etcd/releases/download/v3.5.7/etcd-v3.5.7-linux-amd64.tar.gz"
+
+{
+  tar -xvf etcd-v3.5.7-linux-amd64.tar.gz
+  sudo mv etcd-v3.5.7-linux-amd64/etcd* /usr/local/bin/
+}
+
+echo "Configure the etcd Server"
+{
+  sudo mkdir -p /etc/etcd /var/lib/etcd
+  sudo chmod 700 /var/lib/etcd
+  sudo cp ca.crt etcd.key etcd.crt /etc/etcd/
+}
+
+INTERNAL_IP=$(curl -s http://169.254.169.254/latest/meta-data/local-ipv4)
+echo "${INTERNAL_IP}"
+
+# Only one of the following lines should be uncommented
+ETCD_NAME="controller-101"
+#ETCD_NAME="controller-102"
+#ETCD_NAME="controller-103"
+
+cat <<EOF | sudo tee /etc/systemd/system/etcd.service
+[Unit]
+Description=etcd
+Documentation=https://github.com/coreos
+
+[Service]
+Type=notify
+ExecStart=/usr/local/bin/etcd \\
+  --name ${ETCD_NAME} \\
+  --cert-file=/etc/etcd/etcd.crt \\
+  --key-file=/etc/etcd/etcd.key \\
+  --peer-cert-file=/etc/etcd/etcd.crt \\
+  --peer-key-file=/etc/etcd/etcd.key \\
+  --trusted-ca-file=/etc/etcd/ca.crt \\
+  --peer-trusted-ca-file=/etc/etcd/ca.crt \\
+  --peer-client-cert-auth \\
+  --client-cert-auth \\
+  --initial-advertise-peer-urls https://${INTERNAL_IP}:2380 \\
+  --listen-peer-urls https://${INTERNAL_IP}:2380 \\
+  --listen-client-urls https://${INTERNAL_IP}:2379,https://127.0.0.1:2379 \\
+  --advertise-client-urls https://${INTERNAL_IP}:2379 \\
+  --initial-cluster-token etcd-cluster-0 \\
+  --initial-cluster controller-101=https://172.31.56.101:2380,controller-102=https://172.31.56.102:2380,controller-103=https://172.31.56.103:2380 \\
+  --initial-cluster-state new \\
+  --data-dir=/var/lib/etcd
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+echo "Start the etcd Server"
+{
+  sudo systemctl daemon-reload
+  sudo systemctl enable etcd
+  sudo systemctl start etcd
+}
+
+echo "Verification"
+sudo ETCDCTL_API=3 etcdctl member list \
+  --endpoints=https://127.0.0.1:2379 \
+  --cacert=/etc/etcd/ca.crt \
+  --cert=/etc/etcd/etcd.crt \
+  --key=/etc/etcd/etcd.key

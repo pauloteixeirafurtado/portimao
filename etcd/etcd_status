@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+sudo etcdctl member list -wtable --cacert=/etc/etcd/ca.crt --cert=/etc/etcd/etcd.crt --key=/etc/etcd/etcd.key
+sudo etcdctl endpoint status -wtable --cacert=/etc/etcd/ca.crt --cert=/etc/etcd/etcd.crt --key=/etc/etcd/etcd.key
+sudo etcdctl endpoint health -wtable --cacert=/etc/etcd/ca.crt --cert=/etc/etcd/etcd.crt --key=/etc/etcd/etcd.key
+sudo etcdctl alarm list  -wtable --cacert=/etc/etcd/ca.crt --cert=/etc/etcd/etcd.crt --key=/etc/etcd/etcd.key
