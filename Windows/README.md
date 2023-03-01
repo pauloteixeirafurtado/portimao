@@ -69,12 +69,12 @@ cp -R /usr/share/easy-rsa/ easy-rsa
 cd easy-rsa/
 ./easyrsa init-pki 
 ./easyrsa build-ca nopass (colocar o common name do Windows... tipo EC2AMAZ-KQMRHS6-CA)
-/easyrsa gen-req www.lisboa.pt nopass
-./easyrsa --subject-alt-name="DNS:www.lisboa.pt" sign-req server www.lisboa.pt
-./easyrsa export-p12 www.lisboa.pt
-mv /etc/easy-rsa/pki/private/www.lisboa.pt.p12 /etc/easy-rsa/pki/private/www.lisboa.pt.pfx
+/easyrsa gen-req www.Lisboa.pt nopass
+./easyrsa --subject-alt-name="DNS:www.Lisboa.pt" sign-req server www.Lisboa.pt
+./easyrsa export-p12 www.Lisboa.pt
+mv /etc/easy-rsa/pki/private/www.Lisboa.pt.p12 /etc/easy-rsa/pki/private/www.Lisboa.pt.pfx
 apt install apache2
-cp /etc/easy-rsa/pki/private/www.lisboa.pt.pfx /var/www/html/
+cp /etc/easy-rsa/pki/private/www.Lisboa.pt.pfx /var/www/html/
 cp /etc/easy-rsa/pki/ca.crt /var/www/html/
 chmod ugo+r /var/www/html/*
 ```

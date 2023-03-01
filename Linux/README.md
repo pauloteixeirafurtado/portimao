@@ -8,10 +8,10 @@ systemctl enable iptables
 systemctl start iptables
 
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
-iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 3389,23389 -j DNAT --to-destination 10.0.1.101
-iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 3390,23390 -j DNAT --to-destination 10.0.1.101
-iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 80,443,2222 -j DNAT --to-destination 10.0.2.101
-iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 8080,8443,22222 -j DNAT --to-destination 10.0.2.102
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 3389,23389 -j DNAT --to-destination 192.168.1.101
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 3390,23390 -j DNAT --to-destination 192.168.1.101
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 80,443,2222 -j DNAT --to-destination 192.168.2.101
+iptables -t nat -A PREROUTING -i eth0 -p tcp -m multiport --dport 8080,8443,22222 -j DNAT --to-destination 192.168.2.102
 
 sudo iptables -F
 
@@ -45,11 +45,11 @@ network:
                 use-dns: false
             routes:
               - to: 0.0.0.0/0
-                via: 10.0.1.100
+                via: 192.168.1.100
                 on-link: true
             nameservers:
                 search: [pdl.local]
-                addresses: [10.0.1.100]
+                addresses: [192.168.1.100]
             match:
                 macaddress: 12:de:01:67:38:71
             set-name: eth0

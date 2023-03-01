@@ -132,19 +132,19 @@ $TTL    604800
                          604800 )       ; Negative Cache TTL
 ;
 @       IN      NS      ns.
-@       IN      A       10.0.0.100
-@       IN      A       10.0.1.100
-@       IN      A       10.0.2.100
-ns      IN      A       10.0.0.100
-ns      IN      A       10.0.1.100
-ns      IN      A       10.0.2.100
-rh      IN      A       10.0.2.102
-deb     IN      A       10.0.2.101
-rhcli   IN      A       10.0.1.102
-debcli  IN      A       10.0.1.101
-luxsrv  IN      A       10.0.0.100
-luxsrv  IN      A       10.0.1.100
-luxsrv  IN      A       10.0.2.100
+@       IN      A       192.168.0.100
+@       IN      A       192.168.1.100
+@       IN      A       192.168.2.100
+ns      IN      A       192.168.0.100
+ns      IN      A       192.168.1.100
+ns      IN      A       192.168.2.100
+rh      IN      A       192.168.2.102
+deb     IN      A       192.168.2.101
+rhcli   IN      A       192.168.1.102
+debcli  IN      A       192.168.1.101
+luxsrv  IN      A       192.168.0.100
+luxsrv  IN      A       192.168.1.100
+luxsrv  IN      A       192.168.2.100
 ```
 
 ```
@@ -162,14 +162,14 @@ $TTL    604800
 ;
 @       IN      NS      ns.
 @       IN      MX      10      smtp
-@       IN      A       10.0.0.100
-@       IN      A       10.0.1.100
-@       IN      A       10.0.2.100
-ns      IN      A       10.0.0.100
-ns      IN      A       10.0.1.100
-ns      IN      A       10.0.2.100
-www     IN      A       10.0.2.102
-smtp    IN      A       10.0.2.102
+@       IN      A       192.168.0.100
+@       IN      A       192.168.1.100
+@       IN      A       192.168.2.100
+ns      IN      A       192.168.0.100
+ns      IN      A       192.168.1.100
+ns      IN      A       192.168.2.100
+www     IN      A       192.168.2.102
+smtp    IN      A       192.168.2.102
 ```
 
 ```
@@ -187,14 +187,14 @@ $TTL    604800
 ;
 @       IN      NS      ns.
 @       IN      MX      10      smtp
-@       IN      A       10.0.0.100
-@       IN      A       10.0.1.100
-@       IN      A       10.0.2.100
-ns      IN      A       10.0.0.100
-ns      IN      A       10.0.1.100
-ns      IN      A       10.0.2.100
-www     IN      A       10.0.2.101
-smtp    IN      A       10.0.2.101
+@       IN      A       192.168.0.100
+@       IN      A       192.168.1.100
+@       IN      A       192.168.2.100
+ns      IN      A       192.168.0.100
+ns      IN      A       192.168.1.100
+ns      IN      A       192.168.2.100
+www     IN      A       192.168.2.101
+smtp    IN      A       192.168.2.101
 ```
 
 ** Configurar IPTABLES**
@@ -207,11 +207,11 @@ smtp    IN      A       10.0.2.101
 :INPUT ACCEPT [0:0]
 :OUTPUT ACCEPT [0:0]
 :POSTROUTING ACCEPT [0:0]
--A PREROUTING -i eth0 -p tcp --dport 3389 -j DNAT --to-destination 10.0.1.101
--A PREROUTING -i eth0 -p tcp --dport 3390 -j DNAT --to-destination 10.0.1.102:3389
--A PREROUTING -i eth0 -p tcp --dport 8080 -j DNAT --to-destination 10.0.2.102:80
--A PREROUTING -i eth0 -p tcp --dport 8443 -j DNAT --to-destination 10.0.2.102:443
--A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 10.0.2.101
+-A PREROUTING -i eth0 -p tcp --dport 3389 -j DNAT --to-destination 192.168.1.101
+-A PREROUTING -i eth0 -p tcp --dport 3390 -j DNAT --to-destination 192.168.1.102:3389
+-A PREROUTING -i eth0 -p tcp --dport 8080 -j DNAT --to-destination 192.168.2.102:80
+-A PREROUTING -i eth0 -p tcp --dport 8443 -j DNAT --to-destination 192.168.2.102:443
+-A PREROUTING -i eth0 -p tcp -m multiport --dports 80,443 -j DNAT --to-destination 192.168.2.101
 -A POSTROUTING -o eth0 -j MASQUERADE
 COMMIT
 # Completed on Fri Feb 24 22:58:32 2023
@@ -237,7 +237,7 @@ network:
                 use-dns: false
             nameservers:
                 search: [pdl.local]
-                addresses: [10.0.0.100]
+                addresses: [192.168.0.100]
             dhcp6: false
             match:
                 macaddress: 12:ce:3f:9f:f0:d1
@@ -249,7 +249,7 @@ network:
                 use-dns: false
             nameservers:
                 search: [pdl.local]
-                addresses: [10.0.1.100]
+                addresses: [192.168.1.100]
             dhcp6: false
             match:
                 macaddress: 12:1c:08:bc:79:1b
@@ -261,7 +261,7 @@ network:
                 use-dns: false
             nameservers:
                 search: [pdl.local]
-                addresses: [10.0.2.100]
+                addresses: [192.168.2.100]
             dhcp6: false
             match:
                 macaddress: 12:d5:13:3f:36:b3
