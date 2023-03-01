@@ -165,16 +165,9 @@ resource "aws_instance" "srv_lis_local" {
     device_index         = 0
     network_interface_id = aws_network_interface.srv_lis_public1.id
   }
-#  private_ip                           = "192.168.0.100"
-#  source_dest_check                    = false
-
   tags                                 = {
     "Name" = "srv.lis.local"
   }
-#  vpc_security_group_ids               = [
-#    aws_security_group.lis_default.id,
-#  ]
-
   root_block_device {
     delete_on_termination = true
     tags                                 = {
@@ -183,6 +176,7 @@ resource "aws_instance" "srv_lis_local" {
     volume_size           = 30
     volume_type           = "gp2"
   }
+  user_data = data.template_file.srv-lis-local.rendered
 }
 
 resource "aws_network_interface" "srv_lis_private1" {
@@ -195,7 +189,6 @@ resource "aws_network_interface" "srv_lis_private1" {
   tags                                 = {
     "Name" = "Lisboa private1 interface"
   }
-
   attachment {
     device_index  = 1
     instance      = aws_instance.srv_lis_local.id
@@ -212,7 +205,6 @@ resource "aws_network_interface" "srv_lis_private2" {
   tags                                 = {
     "Name" = "Lisboa private2 interface"
   }
-
   attachment {
     device_index  = 2
     instance      = aws_instance.srv_lis_local.id
@@ -240,4 +232,140 @@ resource "aws_eip" "lis_public_ip" {
   depends_on = [
     aws_instance.srv_lis_local
   ]
+}
+
+resource "aws_instance" "winsrv_lis_local" {
+  ami                                  = "ami-039965e18092d85cb"
+  instance_type                        = "t2.small"
+  key_name                             = "vokeyoregon"
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.winsrv_lis_private1.id
+  }
+  tags                                 = {
+    "Name" = "winsrv.lis.local"
+  }
+  root_block_device {
+    delete_on_termination = true
+    tags                                 = {
+      "Name" = "Volume for winsrv.lis.local"
+    }
+    volume_size           = 30
+    volume_type           = "gp2"
+  }
+  user_data = data.template_file.winsrv-lis-local.rendered
+}
+
+resource "aws_network_interface" "winsrv_lis_private1" {
+  private_ips         = ["192.168.1.100"]
+  security_groups    = [
+    aws_security_group.lis_default.id,
+  ]
+  source_dest_check  = false
+  subnet_id          = aws_subnet.lis_private1.id
+  tags                                 = {
+    "Name" = "Lisboa winsrv private interface"
+  }
+}
+
+resource "aws_instance" "windmz_lis_local" {
+  ami                                  = "ami-039965e18092d85cb"
+  instance_type                        = "t2.small"
+  key_name                             = "vokeyoregon"
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.windmz_lis_private2.id
+  }
+  tags                                 = {
+    "Name" = "windmz.lis.local"
+  }
+  root_block_device {
+    delete_on_termination = true
+    tags                                 = {
+      "Name" = "Volume for windmz.lis.local"
+    }
+    volume_size           = 30
+    volume_type           = "gp2"
+  }
+  user_data = data.template_file.windmz-lis-local.rendered
+}
+
+resource "aws_network_interface" "windmz_lis_private2" {
+  private_ips         = ["192.168.2.100"]
+  security_groups    = [
+    aws_security_group.lis_default.id,
+  ]
+  source_dest_check  = false
+  subnet_id          = aws_subnet.lis_private2.id
+  tags                                 = {
+    "Name" = "Lisboa windmz private interface"
+  }
+}
+
+resource "aws_instance" "maria_lis_local" {
+  ami                                  = "ami-039965e18092d85cb"
+  instance_type                        = "t2.small"
+  key_name                             = "vokeyoregon"
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.maria_lis_private1.id
+  }
+  tags                                 = {
+    "Name" = "maria.lis.local"
+  }
+  root_block_device {
+    delete_on_termination = true
+    tags                                 = {
+      "Name" = "Volume for maria.lis.local"
+    }
+    volume_size           = 30
+    volume_type           = "gp2"
+  }
+  user_data = data.template_file.maria-lis-local.rendered
+}
+
+resource "aws_network_interface" "maria_lis_private1" {
+  private_ips         = ["192.168.1.101"]
+  security_groups    = [
+    aws_security_group.lis_default.id,
+  ]
+  source_dest_check  = false
+  subnet_id          = aws_subnet.lis_private1.id
+  tags                                 = {
+    "Name" = "Lisboa maria private interface"
+  }
+}
+
+resource "aws_instance" "manuel_lis_local" {
+  ami                                  = "ami-039965e18092d85cb"
+  instance_type                        = "t2.small"
+  key_name                             = "vokeyoregon"
+  network_interface {
+    device_index         = 0
+    network_interface_id = aws_network_interface.manuel_lis_private1.id
+  }
+  tags                                 = {
+    "Name" = "manuel.lis.local"
+  }
+  root_block_device {
+    delete_on_termination = true
+    tags                                 = {
+      "Name" = "Volume for manuel.lis.local"
+    }
+    volume_size           = 30
+    volume_type           = "gp2"
+  }
+  user_data = data.template_file.manuel-lis-local.rendered
+}
+
+resource "aws_network_interface" "manuel_lis_private1" {
+  private_ips         = ["192.168.1.102"]
+  security_groups    = [
+    aws_security_group.lis_default.id,
+  ]
+  source_dest_check  = false
+  subnet_id          = aws_subnet.lis_private1.id
+  tags                                 = {
+    "Name" = "Lisboa manuel private interface"
+  }
 }

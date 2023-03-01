@@ -29,7 +29,7 @@ Set-LocalUser administrator -Password $pass
 
 Após inserir o primeiro comando ele pede a password que será Passw0rd.
 
-**winslq.portimao.pt**
+**winslq.Portimao.pt**
 
 Instalar o MySQL server e o Workbench
 

@@ -29,9 +29,9 @@ zone "portugal.pt" {
         allow-update { none; };
 };
 
-zone "portimao.pt" {
+zone "Portimao.pt" {
         type master;
-        file "/var/lib/bind/db.portimao.pt";
+        file "/var/lib/bind/db.Portimao.pt";
         allow-update { none; };
 };
 
@@ -78,7 +78,7 @@ options {
 total 16
 -rw-r--r-- 1 root bind 716 Feb 25 11:05 db.0.10
 -rw-r--r-- 1 root bind 497 Feb 24 23:34 db.pdl.local
--rw-r--r-- 1 root bind 405 Feb 25 11:06 db.portimao.pt
+-rw-r--r-- 1 root bind 405 Feb 25 11:06 db.Portimao.pt
 -rw-r--r-- 1 root bind 405 Feb 25 11:06 db.portugal.pt
 ```
 
@@ -111,11 +111,11 @@ $TTL    604800
 102.2   IN      PTR     ns.portugal.pt
 101.2   IN      PTR     www.portugal.pt
 101.2   IN      PTR     smtp.portugal.pt
-100.2   IN      PTR     ns.portimao.pt
-101.2   IN      PTR     ns.portimao.pt
-102.2   IN      PTR     ns.portimao.pt
-102.2   IN      PTR     www.portimao.pt
-102.2   IN      PTR     smtp.portimao.pt
+100.2   IN      PTR     ns.Portimao.pt
+101.2   IN      PTR     ns.Portimao.pt
+102.2   IN      PTR     ns.Portimao.pt
+102.2   IN      PTR     www.Portimao.pt
+102.2   IN      PTR     smtp.Portimao.pt
 ```
 
 ```
@@ -148,12 +148,12 @@ luxsrv  IN      A       192.168.2.100
 ```
 
 ```
-# cat db.portimao.pt
+# cat db.Portimao.pt
 ;
 ; BIND data file for local loopback interface
 ;
 $TTL    604800
-@       IN      SOA     portimao.pt. root.portimao.pt. (
+@       IN      SOA     Portimao.pt. root.Portimao.pt. (
                               2         ; Serial
                          604800         ; Refresh
                           86400         ; Retry
@@ -323,9 +323,9 @@ cd easy-rsa/
 ./easyrsa init-pki
 ./easyrsa build-ca nopass
 ./easyrsa gen-req www.portugal.pt nopass
-./easyrsa gen-req www.portimao.pt nopass
+./easyrsa gen-req www.Portimao.pt nopass
 ./easyrsa --subject-alt-name="DNS:www.portugal.pt" sign-req server www.portugal.pt
-./easyrsa --subject-alt-name="DNS:www.portimao.pt" sign-req server www.portimao.pt
+./easyrsa --subject-alt-name="DNS:www.Portimao.pt" sign-req server www.Portimao.pt
 ```
 Instalar o CA nos clientes e copiar os certificados para os servidores; forma mais fácil instalar o apache2 e colocar na raiz:
 ```
@@ -335,9 +335,9 @@ Instalar o CA nos clientes e copiar os certificados para os servidores; forma ma
   346  rm index.html 
   347  cp /etc/easy-rsa/pki/ca.crt .
   348  cp /etc/easy-rsa/pki/issued/www.portugal.pt.crt .
-  349  cp /etc/easy-rsa/pki/issued/www.portimao.pt.crt .
+  349  cp /etc/easy-rsa/pki/issued/www.Portimao.pt.crt .
   350  cp /etc/easy-rsa/pki/private/www.portugal.pt.key .
-  351  cp /etc/easy-rsa/pki/private/www.portimao.pt.key .
+  351  cp /etc/easy-rsa/pki/private/www.Portimao.pt.key .
   ```
 
 
