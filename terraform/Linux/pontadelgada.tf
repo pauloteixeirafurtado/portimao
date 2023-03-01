@@ -6,28 +6,28 @@ resource "aws_vpc" "PontaDelgada" {
 }
 
 resource "aws_subnet" "pdl_private1" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "10.0.1.0/24"
   tags                                           = {
-    "Name" = "PontaDelgada-subnet-pdl_private1-us-west-2a"
+    "Name" = "PontaDelgada-subnet-pdl_private1"
   }
   vpc_id                                         = aws_vpc.PontaDelgada.id
 }
 
 resource "aws_subnet" "pdl_private2" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "10.0.2.0/24"
   tags                                           = {
-    "Name" = "PontaDelgada-subnet-pdl_private2-us-west-2a"
+    "Name" = "PontaDelgada-subnet-pdl_private2"
   }
   vpc_id                                         = aws_vpc.PontaDelgada.id
 }
 
 resource "aws_subnet" "pdl_public1" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "10.0.0.0/24"
   tags                                           = {
-    "Name" = "PontaDelgada-subnet-pdl_public1-us-west-2a"
+    "Name" = "PontaDelgada-subnet-pdl_public1"
   }
   vpc_id                                         = aws_vpc.PontaDelgada.id
 }
@@ -41,14 +41,14 @@ resource "aws_internet_gateway" "PontaDelgada-igw" {
 
 resource "aws_route_table" "pdl_private1" {
   tags             = {
-    "Name" = "PontaDelgada-rtb-pdl_private1-us-west-2a"
+    "Name" = "PontaDelgada-rtb-pdl_private1"
   }
   vpc_id           = aws_vpc.PontaDelgada.id
 }
 
 resource "aws_route_table" "pdl_private2" {
   tags             = {
-    "Name" = "PontaDelgada-rtb-pdl_private2-us-west-2a"
+    "Name" = "PontaDelgada-rtb-pdl_private2"
   }
   vpc_id           = aws_vpc.PontaDelgada.id
 }
@@ -98,7 +98,7 @@ resource "aws_vpc_endpoint" "PontaDelgada-vpce-s3" {
     aws_route_table.pdl_private1.id,
     aws_route_table.pdl_private2.id,
   ]
-  service_name          = "com.amazonaws.us-west-2.s3"
+  service_name          = var.vpc_ep_svc_name
   tags                  = {
     "Name" = "PontaDelgada-vpce-s3"
   }

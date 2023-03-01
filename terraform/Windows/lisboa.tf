@@ -6,28 +6,28 @@ resource "aws_vpc" "Lisboa" {
 }
 
 resource "aws_subnet" "lis_private1" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "192.168.1.0/24"
   tags                                           = {
-    "Name" = "Lisboa-subnet-lis_private1-us-west-2a"
+    "Name" = "Lisboa-subnet-lis_private1"
   }
   vpc_id                                         = aws_vpc.Lisboa.id
 }
 
 resource "aws_subnet" "lis_private2" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "192.168.2.0/24"
   tags                                           = {
-    "Name" = "Lisboa-subnet-lis_private2-us-west-2a"
+    "Name" = "Lisboa-subnet-lis_private2"
   }
   vpc_id                                         = aws_vpc.Lisboa.id
 }
 
 resource "aws_subnet" "lis_public1" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "192.168.0.0/24"
   tags                                           = {
-    "Name" = "Lisboa-subnet-lis_public1-us-west-2a"
+    "Name" = "Lisboa-subnet-lis_public1"
   }
   vpc_id                                         = aws_vpc.Lisboa.id
 }
@@ -41,14 +41,14 @@ resource "aws_internet_gateway" "Lisboa-igw" {
 
 resource "aws_route_table" "lis_private1" {
   tags             = {
-    "Name" = "Lisboa-rtb-lis_private1-us-west-2a"
+    "Name" = "Lisboa-rtb-lis_private1"
   }
   vpc_id           = aws_vpc.Lisboa.id
 }
 
 resource "aws_route_table" "lis_private2" {
   tags             = {
-    "Name" = "Lisboa-rtb-lis_private2-us-west-2a"
+    "Name" = "Lisboa-rtb-lis_private2"
   }
   vpc_id           = aws_vpc.Lisboa.id
 }
@@ -98,7 +98,7 @@ resource "aws_vpc_endpoint" "Lisboa-vpce-s3" {
     aws_route_table.lis_private1.id,
     aws_route_table.lis_private2.id,
   ]
-  service_name          = "com.amazonaws.us-west-2.s3"
+  service_name          = var.vpc_ep_svc_name
   tags                  = {
     "Name" = "Lisboa-vpce-s3"
   }

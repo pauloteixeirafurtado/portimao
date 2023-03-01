@@ -6,7 +6,7 @@ resource "aws_vpc" "Portimao" {
 }
 
 resource "aws_subnet" "por_public1" {
-  availability_zone                              = "us-west-2a"
+  availability_zone                              = var.avail_zone
   cidr_block                                     = "172.16.0.0/20"
   tags                                           = {
     "Name" = "Portimao-subnet-por_public1-us-west-2a"
@@ -52,7 +52,7 @@ resource "aws_vpc_endpoint" "Portimao-vpce-s3" {
       Version   = "2008-10-17"
     }
   )
-  service_name          = "com.amazonaws.us-west-2.s3"
+  service_name          = var.vpc_ep_svc_name
   tags                  = {
     "Name" = "Portimao-vpce-s3"
   }
