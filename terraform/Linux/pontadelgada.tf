@@ -158,7 +158,7 @@ resource "aws_vpc_security_group_ingress_rule" "pdl_home" {
 }
 
 resource "aws_instance" "luxsrv_pdl_local" {
-  ami                                  = "ami-0735c191cf914754d"
+  ami                                  = var.deb_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -235,7 +235,7 @@ resource "aws_eip" "pdl_public_ip" {
 }
 
 resource "aws_instance" "deb_pdl_local" {
-  ami                                  = "ami-0735c191cf914754d"
+  ami                                  = var.deb_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -269,7 +269,7 @@ resource "aws_network_interface" "deb_pdl_private2" {
 }
 
 resource "aws_instance" "rh_pdl_local" {
-  ami                                  = "ami-0b029b1931b347543"
+  ami                                  = var.rh_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -303,7 +303,7 @@ resource "aws_network_interface" "rh_pdl_private2" {
 }
 
 resource "aws_instance" "debcli_pdl_local" {
-  ami                                  = "ami-0735c191cf914754d"
+  ami                                  = var.deb_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -337,7 +337,7 @@ resource "aws_network_interface" "debcli_pdl_private1" {
 }
 
 resource "aws_instance" "rhcli_pdl_local" {
-  ami                                  = "ami-0b029b1931b347543"
+  ami                                  = var.rh_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {

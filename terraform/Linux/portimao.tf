@@ -112,7 +112,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_home" {
 }
 
 resource "aws_instance" "luxsql_portimao_pt" {
-  ami                                  = "ami-0735c191cf914754d"
+  ami                                  = var.deb_based
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   subnet_id                            = aws_subnet.por_public1.id

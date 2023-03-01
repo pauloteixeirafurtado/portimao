@@ -158,7 +158,7 @@ resource "aws_vpc_security_group_ingress_rule" "lis_home" {
 }
 
 resource "aws_instance" "srv_lis_local" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -235,7 +235,7 @@ resource "aws_eip" "lis_public_ip" {
 }
 
 resource "aws_instance" "winsrv_lis_local" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -269,7 +269,7 @@ resource "aws_network_interface" "winsrv_lis_private1" {
 }
 
 resource "aws_instance" "windmz_lis_local" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -303,7 +303,7 @@ resource "aws_network_interface" "windmz_lis_private2" {
 }
 
 resource "aws_instance" "maria_lis_local" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {
@@ -337,7 +337,7 @@ resource "aws_network_interface" "maria_lis_private1" {
 }
 
 resource "aws_instance" "manuel_lis_local" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   network_interface {

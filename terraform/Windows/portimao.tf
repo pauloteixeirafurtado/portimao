@@ -112,7 +112,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_home" {
 }
 
 resource "aws_instance" "winsql_portimao_pt" {
-  ami                                  = "ami-039965e18092d85cb"
+  ami                                  = var.windows_server
   instance_type                        = "t2.small"
   key_name                             = "vokeyoregon"
   subnet_id                            = aws_subnet.por_public1.id
