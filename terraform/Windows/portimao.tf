@@ -134,7 +134,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_ip_lis" {
 resource "aws_instance" "winsql_portimao_pt" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   subnet_id                            = aws_subnet.por_public1.id
   tags                                 = {
     "Name" = "winsql.portimao.pt"

@@ -1,3 +1,8 @@
+resource "aws_key_pair" "redes" {
+  key_name   = "Redes"
+  public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC2W6MG+b8k9HKNMRyQksi+S2XBryBNK9uj4DkXu542Hf4hd32zCFnlNbik3EDOE8EKeg8S6IvJGdTeBLYraxize2tm5DMGz6LMeWmyK+OK/EDxYtRpJMXC7Dk3rbRdsRZyvqqmQmP5hJEV5A0zLUYwgm6cIxGa1a+671AG2cX170qbmdb3OzajlccaEIq0QexBoBM2kDpu3kG4aeLKShbp9Pjj290tRFvVMEqwi8Ay8KdQY8Sg1f8QTdJe9F5icACm4SLkfTiSw0sB7nDInNj3R4/Q7yn4Hx65K5uG8jXUGTsHdWcFgrm/naWJ3yfxoNOQayZlX44lL4rsiy7w/HPZR2MBFcYAJxfDG0Pam6fXnQr7MHZ/XK0QaP2vvPbmlifPaJQMEAfOvZxhRS7CLmFawbqokxsO+62ADB/38ycxD0Hq2Q1LF9+f4f17Tq8JRssYFkdzM63l0tnQhbyZM6g+J3VMgovSHu3jBHLZ9wIhilndQvQNtecIqVGzGposdBp0c/USF4km12xk/RXsQnWnbp+8fNcdiSF3dkF0p+dIdfHIuTH5GnmzP9187K3FZu0gueQJuU5Lx0IP+6TEZgSrDJgElx6PJCPzIv6/2OL3QdmhzwcFN3L/xq0GF4GMGxeGGouVQjRKo+Q3u3PLezVoAgAlnAd3qAikP82VA2358w=="
+}
+
 resource "aws_vpc" "Lisboa" {
   cidr_block                           = "192.168.0.0/16"
   tags                                 = {
@@ -170,7 +175,7 @@ resource "aws_vpc_security_group_ingress_rule" "lis_enta" {
 resource "aws_instance" "srv_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.srv_lis_public1.id
@@ -247,7 +252,7 @@ resource "aws_eip" "lis_public_ip" {
 resource "aws_instance" "winsrv_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.winsrv_lis_private1.id
@@ -281,7 +286,7 @@ resource "aws_network_interface" "winsrv_lis_private1" {
 resource "aws_instance" "windmz_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.windmz_lis_private2.id
@@ -315,7 +320,7 @@ resource "aws_network_interface" "windmz_lis_private2" {
 resource "aws_instance" "maria_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.maria_lis_private1.id
@@ -349,7 +354,7 @@ resource "aws_network_interface" "maria_lis_private1" {
 resource "aws_instance" "manuel_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.manuel_lis_private1.id

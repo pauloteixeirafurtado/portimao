@@ -134,7 +134,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_ip_pdl" {
 resource "aws_instance" "luxsql_portimao_pt" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"
-  key_name                             = var.keypair
+  key_name                             = aws_key_pair.redes.key_name
   subnet_id                            = aws_subnet.por_public1.id
   tags                                 = {
     "Name" = "luxsql.portimao.pt"
