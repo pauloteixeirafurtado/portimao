@@ -123,11 +123,11 @@ resource "aws_vpc_security_group_ingress_rule" "por_enta" {
 
 resource "aws_vpc_security_group_ingress_rule" "por_ip_lis" {
   cidr_ipv4              = format("%s/%s", aws_eip.lis_public_ip.public_ip ,"32")
-  description            = "ENTA"
+  description            = "IP publico Lisboa"
   ip_protocol            = "-1"
   security_group_id      = aws_security_group.por_default.id
   tags                   = {
-    "Name" = "ENTA IP address"
+    "Name" = "Lisboa IP address"
   }
 }
 
