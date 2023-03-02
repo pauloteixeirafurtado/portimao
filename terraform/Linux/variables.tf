@@ -1,24 +1,24 @@
 variable "windows_server" {
   type = string
-  default = "ami-039965e18092d85cb"
+  default = "ami-0c2b0d3fb02824d92"
 }
 
 variable "rh_based" {
   type = string
-  default = "ami-0b029b1931b347543"
+  default = "ami-006dcf34c09e50022"
 }
 
 variable "deb_based" {
   type = string
-  default = "ami-0735c191cf914754d"
+  default = "ami-0557a15b87f6559cf"
 }
 
 variable "avail_zone" {
   type = string
-  default = "us-west-2a"
+  default = "us-east-1a"
 }
 
 variable "vpc_ep_svc_name" {
   type = string
-  default = "com.amazonaws.us-west-2.s3"
+  default = "com.amazonaws.us-east-1.s3"
 }

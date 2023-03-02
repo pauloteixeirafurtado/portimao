@@ -306,7 +306,7 @@ resource "aws_instance" "windmz_lis_local" {
 }
 
 resource "aws_network_interface" "windmz_lis_private2" {
-  private_ips         = ["192.168.2.100"]
+  private_ips         = ["192.168.2.101"]
   security_groups    = [
     aws_security_group.lis_default.id,
   ]
