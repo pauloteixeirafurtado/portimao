@@ -170,7 +170,7 @@ resource "aws_vpc_security_group_ingress_rule" "pdl_enta" {
 resource "aws_instance" "luxsrv_pdl_local" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.luxsrv_pdl_public1.id
@@ -247,7 +247,7 @@ resource "aws_eip" "pdl_public_ip" {
 resource "aws_instance" "deb_pdl_local" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.deb_pdl_private2.id
@@ -281,7 +281,7 @@ resource "aws_network_interface" "deb_pdl_private2" {
 resource "aws_instance" "rh_pdl_local" {
   ami                                  = var.rh_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.rh_pdl_private2.id
@@ -315,7 +315,7 @@ resource "aws_network_interface" "rh_pdl_private2" {
 resource "aws_instance" "debcli_pdl_local" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.debcli_pdl_private1.id
@@ -349,7 +349,7 @@ resource "aws_network_interface" "debcli_pdl_private1" {
 resource "aws_instance" "rhcli_pdl_local" {
   ami                                  = var.rh_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.rhcli_pdl_private2.id

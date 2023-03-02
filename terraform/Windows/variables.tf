@@ -22,3 +22,8 @@ variable "vpc_ep_svc_name" {
   type = string
   default = "com.amazonaws.us-west-2.s3"
 }
+
+variable "keypair" {
+  type = string
+  default = "Redes"
+}

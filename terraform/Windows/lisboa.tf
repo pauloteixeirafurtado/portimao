@@ -170,7 +170,7 @@ resource "aws_vpc_security_group_ingress_rule" "lis_enta" {
 resource "aws_instance" "srv_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.srv_lis_public1.id
@@ -247,7 +247,7 @@ resource "aws_eip" "lis_public_ip" {
 resource "aws_instance" "winsrv_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.winsrv_lis_private1.id
@@ -281,7 +281,7 @@ resource "aws_network_interface" "winsrv_lis_private1" {
 resource "aws_instance" "windmz_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.windmz_lis_private2.id
@@ -315,7 +315,7 @@ resource "aws_network_interface" "windmz_lis_private2" {
 resource "aws_instance" "maria_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.maria_lis_private1.id
@@ -349,7 +349,7 @@ resource "aws_network_interface" "maria_lis_private1" {
 resource "aws_instance" "manuel_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.manuel_lis_private1.id

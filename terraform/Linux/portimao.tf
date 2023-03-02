@@ -122,7 +122,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_enta" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "por_ip_pdl" {
-  cidr_ipv4              = aws_eip.pdl_public_ip
+  cidr_ipv4              = format("%s/%s", aws_eip.pdl_public_ip.public_ip ,"32")
   description            = "ENTA"
   ip_protocol            = "-1"
   security_group_id      = aws_security_group.por_default.id
@@ -134,7 +134,7 @@ resource "aws_vpc_security_group_ingress_rule" "por_ip_pdl" {
 resource "aws_instance" "luxsql_portimao_pt" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"
-  key_name                             = "vokeyoregon"
+  key_name                             = var.keypair
   subnet_id                            = aws_subnet.por_public1.id
   tags                                 = {
     "Name" = "luxsql.portimao.pt"
