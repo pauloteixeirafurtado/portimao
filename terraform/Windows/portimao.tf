@@ -111,6 +111,26 @@ resource "aws_vpc_security_group_ingress_rule" "por_home" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "por_enta" {
+  cidr_ipv4              = "185.218.12.73/32"
+  description            = "ENTA"
+  ip_protocol            = "-1"
+  security_group_id      = aws_security_group.por_default.id
+  tags                   = {
+    "Name" = "ENTA IP address"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "por_ip_lis" {
+  cidr_ipv4              = aws_eip.lis_public_ip
+  description            = "ENTA"
+  ip_protocol            = "-1"
+  security_group_id      = aws_security_group.por_default.id
+  tags                   = {
+    "Name" = "ENTA IP address"
+  }
+}
+
 resource "aws_instance" "winsql_portimao_pt" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"

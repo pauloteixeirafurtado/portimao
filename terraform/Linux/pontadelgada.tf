@@ -157,6 +157,16 @@ resource "aws_vpc_security_group_ingress_rule" "pdl_home" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "pdl_enta" {
+  cidr_ipv4              = "185.218.12.73/32"
+  description            = "ENTA"
+  ip_protocol            = "-1"
+  security_group_id      = aws_security_group.pdl_default.id
+  tags                   = {
+    "Name" = "ENTA IP address"
+  }
+}
+
 resource "aws_instance" "luxsrv_pdl_local" {
   ami                                  = var.deb_based
   instance_type                        = "t2.small"

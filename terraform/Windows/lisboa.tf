@@ -157,6 +157,16 @@ resource "aws_vpc_security_group_ingress_rule" "lis_home" {
   }
 }
 
+resource "aws_vpc_security_group_ingress_rule" "lis_enta" {
+  cidr_ipv4              = "185.218.12.73/32"
+  description            = "ENTA"
+  ip_protocol            = "-1"
+  security_group_id      = aws_security_group.lis_default.id
+  tags                   = {
+    "Name" = "ENTA IP address"
+  }
+}
+
 resource "aws_instance" "srv_lis_local" {
   ami                                  = var.windows_server
   instance_type                        = "t2.small"
