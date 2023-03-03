@@ -180,6 +180,14 @@ resource "aws_instance" "luxsrv_pdl_local" {
     device_index         = 0
     network_interface_id = aws_network_interface.luxsrv_pdl_public1.id
   }
+  network_interface {
+    device_index         = 1
+    network_interface_id = aws_network_interface.luxsrv_pdl_private1.id
+  }
+  network_interface {
+    device_index         = 2
+    network_interface_id = aws_network_interface.luxsrv_pdl_private2.id
+  }
   tags                                 = {
     "Name" = "luxsrv.pdl.local"
   }
@@ -204,10 +212,6 @@ resource "aws_network_interface" "luxsrv_pdl_private1" {
   tags                                 = {
     "Name" = "PontaDelgada private1 interface"
   }
-  attachment {
-    device_index  = 1
-    instance      = aws_instance.luxsrv_pdl_local.id
-  }
 }
 
 resource "aws_network_interface" "luxsrv_pdl_private2" {
@@ -219,10 +223,6 @@ resource "aws_network_interface" "luxsrv_pdl_private2" {
   subnet_id          = aws_subnet.pdl_private2.id
   tags                                 = {
     "Name" = "PontaDelgada private2 interface"
-  }
-  attachment {
-    device_index  = 2
-    instance      = aws_instance.luxsrv_pdl_local.id
   }
 }
 
