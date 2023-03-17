@@ -184,23 +184,37 @@ resource "aws_vpc_security_group_ingress_rule" "cyber_home" {
   }
 }
 
-resource "aws_vpc_security_group_ingress_rule" "cyber_enta" {
+resource "aws_vpc_security_group_ingress_rule" "cyber_nos_enta" {
   cidr_ipv4              = "185.218.12.73/32"
-  description            = "ENTA"
+  description            = "ENTA NOS"
   ip_protocol            = "-1"
   security_group_id      = aws_security_group.cyber_default.id
   tags                   = {
-    "Name" = "ENTA IP address"
+    "Name" = "ENTA NOS IP address"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "cyber_meo_enta" {
+  cidr_ipv4              = "83.240.158.54/32"
+  description            = "ENTA MEO"
+  ip_protocol            = "-1"
+  security_group_id      = aws_security_group.cyber_default.id
+  tags                   = {
+    "Name" = "ENTA MEO IP address"
   }
 }
 
 resource "aws_instance" "desktop" {
   ami                                  = var.deb_based
-  instance_type                        = "t2.small"
+  instance_type                        = var.desktop_type
   key_name                             = aws_key_pair.CyberSecurity.key_name
   network_interface {
     device_index         = 0
     network_interface_id = aws_network_interface.desktop_cyber_public1.id
+  }
+  network_interface {
+    device_index         = 1
+    network_interface_id = aws_network_interface.desktop_cyber_private1.id
   }
   tags                                 = {
     "Name" = "desktop"

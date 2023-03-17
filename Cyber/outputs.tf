@@ -13,3 +13,7 @@ output "caller_arn" {
 output "caller_user" {
   value = data.aws_caller_identity.current.user_id
 }
+
+output "eip_desktop" {
+  value = aws_eip.cyber_public_ip.public_ip
+}
